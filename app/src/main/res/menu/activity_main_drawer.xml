@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_promotions"
+            android:icon="@drawable/sale"
+            android:title="Акции" />
+        <item
+            android:id="@+id/nav_restaurant"
+            android:icon="@drawable/food"
+            android:title="Рестораны" />
+        <item
+            android:id="@+id/nav_basket"
+            android:icon="@drawable/basket"
+            android:title="Корзина" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/history"
+            android:title="История заказов" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings"
+            android:title="Настроить профиль" />
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/exit_to_app"
+            android:title="Выход" />
+    </group>
+</menu>

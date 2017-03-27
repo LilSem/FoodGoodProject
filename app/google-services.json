@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1088427157139",
+    "firebase_url": "https://food-good-project.firebaseio.com",
+    "project_id": "food-good-project",
+    "storage_bucket": "food-good-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1088427157139:android:0d8255c84624728c",
+        "android_client_info": {
+          "package_name": "com.food_good.lilsem.food_good"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1088427157139-kgcppqlvppcsm3mpimdnge53hvov9gmt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.food_good.lilsem.food_good",
+            "certificate_hash": "403d6079ea0ef74c7e4c759b4a89965df97cab95"
+          }
+        },
+        {
+          "client_id": "1088427157139-4gsn38pijpk2fcaolgmt0roq4qhuobo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKQDCsahTmyieZfODSROfmDycNd5ivJpk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1088427157139-4gsn38pijpk2fcaolgmt0roq4qhuobo8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
