@@ -153,17 +153,13 @@ public class PlaceSearchDialog extends AppCompatDialog implements GoogleApiClien
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.e(TAG, "Google API client suspended");
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e(TAG, "onConnectionFailed: ConnectionResult.getErrorCode() = "
-                + connectionResult.getErrorCode());
 
-        // TODO(Developer): Check error code and notify the user of error state and resolution.
         Toast.makeText(context,
-                "Could not connect to Google API Client: Error " + connectionResult.getErrorCode(),
+                " Нет соединения, ошибка " + connectionResult.getErrorCode(),
                 Toast.LENGTH_SHORT).show();
     }
 

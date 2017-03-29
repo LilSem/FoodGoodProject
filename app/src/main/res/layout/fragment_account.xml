@@ -1,13 +1,99 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context=".AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout2">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/noavatar"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnChangeUser"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:background="@drawable/btn_corners"
+        android:text="@string/Other_user"
+        android:textColor="@color/colorWhite"
+        android:textSize="17sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/etCity"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/twName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="@string/Name"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignStart="@+id/etName"/>
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/Name"
+        android:layout_below="@+id/twName"
+        android:layout_alignStart="@+id/etEmail"/>
+
+    <TextView
+        android:id="@+id/twMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:hint="@string/Mail"
+        android:layout_below="@+id/etName"
+        android:layout_alignStart="@+id/etName"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/Mail"
+        android:layout_below="@+id/twMail"
+        android:layout_alignStart="@+id/twCity"/>
+
+    <TextView
+        android:id="@+id/twCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/City"
+        android:layout_below="@+id/etEmail"
+        android:layout_alignStart="@+id/etCity"/>
+
+    <EditText
+        android:id="@+id/etCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/City"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/twCity"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

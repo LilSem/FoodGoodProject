@@ -15,6 +15,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
+
     private FirebaseAuth mAuth;
     private EditText etValidatePassword;
     private EditText etValidateEmail;
