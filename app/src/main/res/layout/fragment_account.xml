@@ -22,78 +22,104 @@
             app:srcCompat="@drawable/noavatar"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnChangeUser"
-        android:layout_width="240dp"
-        android:layout_height="40dp"
-        android:background="@drawable/btn_corners"
-        android:text="@string/Other_user"
-        android:textColor="@color/colorWhite"
-        android:textSize="17sp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/etCity"
-        android:layout_centerHorizontal="true"/>
 
-    <TextView
-        android:id="@+id/twName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="@string/Name"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/linearLayout2"
-        android:layout_alignStart="@+id/etName"/>
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/etName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/Name"
-        android:layout_below="@+id/twName"
-        android:layout_alignStart="@+id/etEmail"/>
+        <TextView
+            android:id="@+id/twNameAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Name"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="7dp"/>
 
-    <TextView
-        android:id="@+id/twMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:hint="@string/Mail"
-        android:layout_below="@+id/etName"
-        android:layout_alignStart="@+id/etName"/>
+        <TextView
+            android:id="@+id/twNameUserAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Name"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:layout_marginBottom="22dp"
+            android:textColor="@color/colorText"/>
 
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/Mail"
-        android:layout_below="@+id/twMail"
-        android:layout_alignStart="@+id/twCity"/>
+        <TextView
+            android:id="@+id/twEmailAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Mail"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:layout_marginBottom="7dp"/>
 
-    <TextView
-        android:id="@+id/twCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/City"
-        android:layout_below="@+id/etEmail"
-        android:layout_alignStart="@+id/etCity"/>
+        <TextView
+            android:id="@+id/twEmailUserAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Mail"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:layout_marginBottom="22dp"
+            android:textColor="@color/colorText"/>
 
-    <EditText
-        android:id="@+id/etCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/City"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/twCity"
-        android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/twCityAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/City"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:layout_marginBottom="7dp"/>
+
+        <TextView
+            android:id="@+id/twCityUserAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/City"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:layout_marginBottom="22dp"
+            android:textColor="@color/colorText"/>
+
+        <TextView
+            android:id="@+id/twBonusUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Bonus"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:layout_marginBottom="7dp"
+/>
+
+        <TextView
+            android:id="@+id/twBonusUserAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Bonus"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:layout_marginBottom="25dp"
+            android:textColor="@color/colorText"/>
+
+        <Button
+            android:id="@+id/btnChangeUser"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_corners"
+            android:text="@string/Other_user"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="17sp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
 
 </RelativeLayout>

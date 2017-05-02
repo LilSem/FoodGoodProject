@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         accountFragment = new AccountFragment();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setTitle(getString(R.string.app_title));
     }
 
     @Override
