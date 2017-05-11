@@ -3,8 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".Fragment.AccountFragment">
-
+                tools:context=".AccountFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,78 +34,85 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Name"
-            android:textAlignment="center"
             android:textSize="15sp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="7dp"/>
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
 
         <TextView
             android:id="@+id/twNameUserAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/Name"
-            android:textAlignment="center"
             android:textSize="20sp"
             android:layout_marginBottom="18dp"
-            android:textColor="@color/colorText"/>
+            android:textColor="@color/colorText"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
 
         <TextView
             android:id="@+id/twEmailAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Mail"
-            android:textAlignment="center"
             android:textSize="15sp"
-            android:layout_marginBottom="7dp"/>
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
 
         <TextView
             android:id="@+id/twEmailUserAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/Mail"
-            android:textAlignment="center"
             android:textSize="20sp"
             android:layout_marginBottom="18dp"
-            android:textColor="@color/colorText"/>
+            android:textColor="@color/colorText"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
 
         <TextView
             android:id="@+id/twCityAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/City"
-            android:textAlignment="center"
             android:textSize="15sp"
-            android:layout_marginBottom="7dp"/>
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
 
         <TextView
             android:id="@+id/twCityUserAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/City"
-            android:textAlignment="center"
             android:textSize="20sp"
             android:layout_marginBottom="18dp"
-            android:textColor="@color/colorText"/>
+            android:textColor="@color/colorText"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
 
         <TextView
             android:id="@+id/twBonusUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Bonus"
-            android:textAlignment="center"
             android:textSize="15sp"
             android:layout_marginBottom="7dp"
-            />
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
 
         <TextView
             android:id="@+id/twBonusUserAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/Bonus"
-            android:textAlignment="center"
             android:textSize="20sp"
             android:layout_marginBottom="23dp"
-            android:textColor="@color/colorText"/>
+            android:textColor="@color/colorText"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
 
         <Button
             android:id="@+id/btnChangeUser"
@@ -120,6 +126,5 @@
             android:layout_marginBottom="20dp"
             android:layout_gravity="center"/>
     </LinearLayout>
-
 
 </RelativeLayout>
