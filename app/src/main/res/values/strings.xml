@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Food - Good</string>
+    <string name="app_name">Food Good</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -35,10 +35,12 @@
     <string name="Name">Имя</string>
     <string name="Mail">Почта</string>
     <string name="City">Город</string>
-    <string name="Bonus">Остаток бонусов</string>
+    <string name="Bonus">Бонусы</string>
     <string name="app_title">Food-good delivery</string>
     <string name="phone_number">Номер телефона</string>
     <string name="end_register">Завершить регистрацию</string>
     <string name="other_users_detail">Дополнительная информация</string>
+    <string name="min_sum_buy">Мин. сумма покупки</string>
+    <string name="Delivery_Sum">Стоимость доставки</string>
 
 </resources>

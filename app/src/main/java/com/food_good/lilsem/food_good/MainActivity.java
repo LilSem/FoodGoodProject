@@ -1,9 +1,7 @@
 package com.food_good.lilsem.food_good;
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    BasketFragment mBasketFragment;
     AccountFragment accountFragment;
     Toolbar mToolbar;
 
@@ -62,7 +60,6 @@ public class MainActivity extends AppCompatActivity
         setTitle(getString(R.string.app_title));
 
 
-
         mAuth = FirebaseAuth.getInstance();
         // получаем ссылку на пользователя
         FirebaseUser user = mAuth.getCurrentUser();
@@ -70,7 +67,6 @@ public class MainActivity extends AppCompatActivity
 
         //получаем ссылку на нашу базу данных
         mReference = FirebaseDatabase.getInstance().getReference();
-
 
 
         mReference.addValueEventListener(new ValueEventListener() {
@@ -82,17 +78,6 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewBasket();
             }
         });
     }
@@ -112,24 +97,40 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
+        final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
         int id = item.getItemId();
 
         if (id == R.id.nav_promotions) {
 
         } else if (id == R.id.nav_restaurant) {
 
+//            restaurantFragment = new RestaurantFragment();
+//
+//            ft.replace(R.id.fragment_main, restaurantFragment)
+//                    .addToBackStack(null)
+//                    .commit();
+//            mToolbar.setTitle("Рестораны");
+
         } else if (id == R.id.nav_basket) {
-            viewBasket();
+
+            mBasketFragment = new BasketFragment();
+            fragmentTransaction.replace(R.id.fragment_main, mBasketFragment)
+                    .addToBackStack(null)
+                    .commit();
+            mToolbar.setTitle("Корзина");
+
         } else if (id == R.id.nav_history) {
 
         } else if (id == R.id.nav_settings) {
 
             accountFragment = new AccountFragment();
-            final FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment, accountFragment)
+
+            fragmentTransaction.replace(R.id.fragment_main, accountFragment)
                     .addToBackStack(null)
                     .commit();
             mToolbar.setTitle("Профиль");
+
         } else if (id == R.id.nav_exit) {
             this.finish();
         }
@@ -137,10 +138,5 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void viewBasket() {
-        Intent intent = new Intent(MainActivity.this, BasketActivity.class);
-        startActivity(intent);
     }
 }

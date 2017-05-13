@@ -1,8 +1,9 @@
 package com.food_good.lilsem.food_good;
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +18,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 public class AccountFragment extends Fragment {
 
-        private FirebaseAuth mAuth;
-        private DatabaseReference mReference;
+    public AccountFragment(){
 
-        Button mButton;
-        TextView twNameUser;
-        TextView twEmail;
-        TextView twCity;
-        TextView twBonus;
+    }
 
-        String userRef;
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mReference;
+
+    Button mButton;
+    TextView twNameUser;
+    TextView twEmail;
+    TextView twCity;
+    TextView twBonus;
+
+    String userRef;
 
 
     @Override
