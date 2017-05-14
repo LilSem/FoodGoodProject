@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity
 
     BasketFragment mBasketFragment;
     AccountFragment accountFragment;
+    RestaurantFragment restaurantFragment;
     Toolbar mToolbar;
 
     TextView twNavBarName;
@@ -105,12 +106,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_restaurant) {
 
-//            restaurantFragment = new RestaurantFragment();
-//
-//            ft.replace(R.id.fragment_main, restaurantFragment)
-//                    .addToBackStack(null)
-//                    .commit();
-//            mToolbar.setTitle("Рестораны");
+            restaurantFragment = new RestaurantFragment();
+            fragmentTransaction.replace(R.id.fragment_main, restaurantFragment)
+                    .addToBackStack(null)
+                    .commit();
+            mToolbar.setTitle("Рестораны");
 
         } else if (id == R.id.nav_basket) {
 
@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
             accountFragment = new AccountFragment();
-
             fragmentTransaction.replace(R.id.fragment_main, accountFragment)
                     .addToBackStack(null)
                     .commit();

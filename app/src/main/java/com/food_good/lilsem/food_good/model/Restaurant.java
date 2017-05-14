@@ -7,6 +7,12 @@ public class Restaurant {
     String Name;
     String Kitchen;
     String Salary;
+    String Delivery;
+    String key;
+
+    public Restaurant(){
+
+    }
 
     public int getPhotoUri() {
         return PhotoUri;
@@ -48,14 +54,20 @@ public class Restaurant {
         Delivery = delivery;
     }
 
-    String Delivery;
+    public String getKey() {
+        return key;
+    }
 
-    public Restaurant(int photoUri, String name, String kitchen, String salary, String delivery) {
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public Restaurant(int photoUri, String name, String kitchen, String salary, String delivery, String key) {
         PhotoUri = photoUri;
         Name = name;
         Kitchen = kitchen;
         Salary = salary;
         Delivery = delivery;
+        this.key = key;
     }
-
 }
