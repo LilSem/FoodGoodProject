@@ -32,10 +32,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         Restaurant restaurant = mList.get(position);
 
         holder.ivRestaurant.setImageResource(R.drawable.fg_logo);
-        holder.twRestaurantName.setText(restaurant.getName());
-        holder.twKitchen.setText(restaurant.getKitchen());
-        holder.twSalary.setText(restaurant.getSalary());
-        holder.twDelivery.setText(restaurant.getDelivery());
+        holder.twRestaurantName.setText(restaurant.title);
+        holder.twKitchen.setText(restaurant.kitchen + " кухня");
+        holder.twSalary.setText("Мин. сумма покупки: " + restaurant.salaryPrice + "\u20BD");
+        holder.twDelivery.setText("Стоимость доставки: " + restaurant.deliveryPrice + "\u20BD");
     }
 
     @Override
@@ -55,7 +55,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     public RestaurantViewHolder(View itemView){
         super(itemView);
 
-        mCardView = (CardView)  itemView.findViewById(R.id.card_view);
+        mCardView = (CardView)  itemView.findViewById(R.id.cv_restaraunt);
         ivRestaurant = (ImageView) itemView.findViewById(R.id.iv_restaurant_logo);
         twRestaurantName = (TextView) itemView.findViewById(R.id.tw_restaurant_name);
         twKitchen = (TextView) itemView.findViewById(R.id.tw_kitchen);

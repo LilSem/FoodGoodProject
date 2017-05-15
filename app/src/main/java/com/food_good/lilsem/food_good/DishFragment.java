@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.food_good.lilsem.food_good.model.Restaurant;
+import com.food_good.lilsem.food_good.model.Dish;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,15 +20,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantFragment extends Fragment{
-
+public class DishFragment extends Fragment{
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mReference;
 
     private RecyclerView mRecyclerView;
-    private List<Restaurant> mList;
-    private RestaurantAdapter mAdapter;
+    private List<Dish> mList;
+    private DishAdapter mAdapter;
 
 
     @Override
@@ -40,21 +39,20 @@ public class RestaurantFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.restaurant_list, container, false);
+        final View view = inflater.inflate(R.layout.dish_list, container, false);
 
 
         Context context = getActivity();
         mList = new ArrayList<>();
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.restaurant_list);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.dish_list);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RestaurantAdapter(mList);
+        mAdapter = new DishAdapter(mList);
         mRecyclerView.setAdapter(mAdapter);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mReference = mFirebaseDatabase.getReference("restaurants");
-
+        mReference = mFirebaseDatabase.getReference("dishes");
 
         updateList();
         return view;
@@ -72,13 +70,13 @@ public class RestaurantFragment extends Fragment{
         mReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-            mList.add(dataSnapshot.getValue(Restaurant.class));
+                mList.add(dataSnapshot.getValue(Dish.class));
                 mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            Restaurant model = dataSnapshot.getValue(Restaurant.class);
+                Dish model = dataSnapshot.getValue(Dish.class);
                 int index = getItemIndex(model);
                 mList.set(index, model);
                 mAdapter.notifyItemChanged(index);
@@ -87,7 +85,7 @@ public class RestaurantFragment extends Fragment{
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Restaurant model = dataSnapshot.getValue(Restaurant.class);
+                Dish model = dataSnapshot.getValue(Dish.class);
                 int index = getItemIndex(model);
 
                 mList.remove(index);
@@ -106,14 +104,15 @@ public class RestaurantFragment extends Fragment{
         });
     }
 
-        private int getItemIndex(Restaurant restaurant){
+    private int getItemIndex(Dish dish){
         int index = -1;
-            for (int i = 0; i < mList.size(); i++) {
-                if (mList.get(i).key.equals(restaurant.key)){
-                    index = i;
-                    break;
-                }
+        for (int i = 0; i < mList.size(); i++) {
+            if (mList.get(i).key.equals(dish.key)){
+                index = i;
+                break;
             }
-            return index;
         }
+        return index;
+    }
+
 }

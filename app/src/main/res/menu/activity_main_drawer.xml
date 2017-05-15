@@ -9,8 +9,12 @@
             android:title="Акции" />
         <item
             android:id="@+id/nav_restaurant"
-            android:icon="@drawable/food"
+            android:icon="@drawable/restaurant"
             android:title="Рестораны" />
+        <item
+            android:id="@+id/nav_dishes"
+            android:icon="@drawable/food"
+            android:title="Блюда" />
         <item
             android:id="@+id/nav_basket"
             android:icon="@drawable/basket"
