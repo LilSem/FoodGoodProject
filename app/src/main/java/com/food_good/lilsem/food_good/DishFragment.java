@@ -54,6 +54,7 @@ public class DishFragment extends Fragment{
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mReference = mFirebaseDatabase.getReference("dishes");
 
+
         updateList();
         return view;
     }

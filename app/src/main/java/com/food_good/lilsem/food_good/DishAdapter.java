@@ -36,9 +36,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         holder.ivDish.setImageResource(R.drawable.fg_logo);
         holder.tvTitle.setText(dish.title);
         holder.tvComposition.setText("Состав: " + dish.composition);
-        holder.tvCalories.setText("Калории: " + dish.calories);
-        holder.tvWeight.setText("Вес: " + dish.weight);
-        holder.tvPrice.setText("Цена: " + dish.price + "\u20BD");
+        holder.tvWeight.setText("Вес: " + dish.weight + " г.");
+        holder.tvPrice.setText("Цена: " + dish.price + " \u20BD");
     }
 
     @Override
@@ -51,7 +50,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         CardView mCardView;
         ImageView ivDish;
         TextView tvTitle;
-        TextView tvCalories;
         TextView tvComposition;
         TextView tvWeight;
         TextView tvPrice;
@@ -62,7 +60,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             mCardView = (CardView)  itemView.findViewById(R.id.cv_dish);
             ivDish = (ImageView) itemView.findViewById(R.id.iv_dish_logo);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            tvCalories = (TextView) itemView.findViewById(R.id.tv_calories);
             tvComposition = (TextView) itemView.findViewById(R.id.tv_composition);
             tvWeight = (TextView) itemView.findViewById(R.id.tv_weight);
             tvPrice = (TextView) itemView.findViewById(R.id.tv_price);

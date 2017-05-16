@@ -34,8 +34,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         holder.ivRestaurant.setImageResource(R.drawable.fg_logo);
         holder.twRestaurantName.setText(restaurant.title);
         holder.twKitchen.setText(restaurant.kitchen + " кухня");
-        holder.twSalary.setText("Мин. сумма покупки: " + restaurant.salaryPrice + "\u20BD");
-        holder.twDelivery.setText("Стоимость доставки: " + restaurant.deliveryPrice + "\u20BD");
+        holder.twSalary.setText("Мин. сумма покупки: " + restaurant.salaryPrice + " \u20BD");
+        holder.twDelivery.setText("Стоимость доставки: " + restaurant.deliveryPrice + " \u20BD");
     }
 
     @Override

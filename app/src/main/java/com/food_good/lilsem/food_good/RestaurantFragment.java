@@ -55,7 +55,6 @@ public class RestaurantFragment extends Fragment{
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mReference = mFirebaseDatabase.getReference("restaurants");
 
-
         updateList();
         return view;
     }
