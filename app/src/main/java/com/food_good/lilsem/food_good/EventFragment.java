@@ -2,7 +2,6 @@ package com.food_good.lilsem.food_good;
 
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.food_good.lilsem.food_good.model.Restaurant;
+import com.food_good.lilsem.food_good.model.Event;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,15 +20,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantFragment extends Fragment implements RestaurantAdapter.OnRecyclerViewItemClickListener {
+public class EventFragment extends Fragment {
 
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mReference;
 
     private RecyclerView mRecyclerView;
-    private List<Restaurant> mList;
-    private RestaurantAdapter mAdapter;
+    private List<Event> mList;
+    private EventAdapter mAdapter;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,38 +41,38 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.On
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.restaurant_list, container, false);
+        final View view = inflater.inflate(R.layout.event_list, container, false);
 
 
         Context context = getActivity();
         mList = new ArrayList<>();
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.restaurant_list);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.event_list);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RestaurantAdapter(mList, this);
+        mAdapter = new EventAdapter(mList);
         mRecyclerView.setAdapter(mAdapter);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mReference = mFirebaseDatabase.getReference("restaurants");
+
+        mReference = mFirebaseDatabase.getReference("events");
 
         updateList();
-
         return view;
     }
 
-    private void updateList() {
+    private void updateList(){
 
         mReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mList.add(dataSnapshot.getValue(Restaurant.class));
+                mList.add(dataSnapshot.getValue(Event.class));
                 mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Restaurant model = dataSnapshot.getValue(Restaurant.class);
+                Event model = dataSnapshot.getValue(Event.class);
                 int index = getItemIndex(model);
                 mList.set(index, model);
                 mAdapter.notifyItemChanged(index);
@@ -80,12 +81,13 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.On
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Restaurant model = dataSnapshot.getValue(Restaurant.class);
+                Event model = dataSnapshot.getValue(Event.class);
                 int index = getItemIndex(model);
 
                 mList.remove(index);
-                mAdapter.notifyItemRemoved(index);
+                mAdapter.notifyItemRemoved( index);
             }
+
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
@@ -99,10 +101,10 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.On
         });
     }
 
-    private int getItemIndex(Restaurant restaurant) {
+    private int getItemIndex(Event event){
         int index = -1;
         for (int i = 0; i < mList.size(); i++) {
-            if (mList.get(i).key.equals(restaurant.key)) {
+            if (mList.get(i).key.equals(event.key)){
                 index = i;
                 break;
             }
@@ -110,19 +112,5 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.On
         return index;
     }
 
-    @Override
-    public void onClick(int position) {
-        DishFragment dishFragment = new DishFragment();
 
-        String id;
-
-        id = mList.get(position).id;
-        Bundle bundle = new Bundle();
-        bundle.putString("id", id);
-        dishFragment.setArguments(bundle);
-        final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_main, dishFragment)
-                .addToBackStack(null)
-                .commit();
-    }
 }

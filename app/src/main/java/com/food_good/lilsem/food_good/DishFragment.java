@@ -29,6 +29,8 @@ public class DishFragment extends Fragment{
     private List<Dish> mList;
     private DishAdapter mAdapter;
 
+    String id = "";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,10 @@ public class DishFragment extends Fragment{
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.dish_list, container, false);
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            id = bundle.getString("id");
+        }
 
         Context context = getActivity();
         mList = new ArrayList<>();
@@ -52,13 +58,13 @@ public class DishFragment extends Fragment{
         mAdapter = new DishAdapter(mList);
         mRecyclerView.setAdapter(mAdapter);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mReference = mFirebaseDatabase.getReference("dishes");
 
+        mReference = mFirebaseDatabase.getReference("dishes");
 
         updateList();
         return view;
     }
-
+//.orderByChild("restaurantId").equalTo(key)
 //    private void createView(){
 //
 //        for (int i = 0; i < 20; i++) {
@@ -66,44 +72,85 @@ public class DishFragment extends Fragment{
 //        }
 //    }
 
-    private void updateList(){
+    private void updateList() {
+        if (id.isEmpty()) {
+            mReference.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    mList.add(dataSnapshot.getValue(Dish.class));
+                    mAdapter.notifyDataSetChanged();
+                }
 
-        mReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mList.add(dataSnapshot.getValue(Dish.class));
-                mAdapter.notifyDataSetChanged();
-            }
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Dish model = dataSnapshot.getValue(Dish.class);
+                    int index = getItemIndex(model);
+                    mList.set(index, model);
+                    mAdapter.notifyItemChanged(index);
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Dish model = dataSnapshot.getValue(Dish.class);
-                int index = getItemIndex(model);
-                mList.set(index, model);
-                mAdapter.notifyItemChanged(index);
+                }
 
-            }
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Dish model = dataSnapshot.getValue(Dish.class);
+                    int index = getItemIndex(model);
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Dish model = dataSnapshot.getValue(Dish.class);
-                int index = getItemIndex(model);
+                    mList.remove(index);
+                    mAdapter.notifyItemRemoved(index);
+                }
 
-                mList.remove(index);
-                mAdapter.notifyItemRemoved( index);
-            }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
+        } else {
+            mReference.orderByChild("restaurantId").equalTo(id).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    mList.add(dataSnapshot.getValue(Dish.class));
+                    mAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Dish model = dataSnapshot.getValue(Dish.class);
+                    int index = getItemIndex(model);
+                    mList.set(index, model);
+                    mAdapter.notifyItemChanged(index);
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Dish model = dataSnapshot.getValue(Dish.class);
+                    int index = getItemIndex(model);
+
+                    mList.remove(index);
+                    mAdapter.notifyItemRemoved(index);
+                }
+
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
+
 
     private int getItemIndex(Dish dish){
         int index = -1;

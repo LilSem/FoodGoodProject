@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     AccountFragment accountFragment;
     RestaurantFragment restaurantFragment;
     DishFragment dishFragment;
+    EventFragment eventFragment;
 
     Toolbar mToolbar;
 
@@ -105,6 +106,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_promotions) {
+
+            eventFragment = new EventFragment();
+            fragmentTransaction.replace(R.id.fragment_main, eventFragment)
+                    .addToBackStack(null)
+                    .commit();
+            mToolbar.setTitle("Акции");
 
         } else if (id == R.id.nav_restaurant) {
 
