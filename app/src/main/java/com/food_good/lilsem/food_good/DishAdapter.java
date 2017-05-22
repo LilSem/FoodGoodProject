@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,10 +18,18 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
 
     private List<Dish> mList;
+    private OnRecyclerViewItemClickListener mClickListener;
 
-    public DishAdapter(List<Dish> list) {
-        mList = list;
+
+    public interface OnRecyclerViewItemClickListener {
+        void onClick(int position);
     }
+
+    public DishAdapter(List<Dish> list, OnRecyclerViewItemClickListener clickListener) {
+        mList = list;
+        mClickListener = clickListener;
+    }
+
 
     @Override
     public DishViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -29,7 +38,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
 
     @Override
-    public void onBindViewHolder(DishAdapter.DishViewHolder holder, int position) {
+    public void onBindViewHolder(DishAdapter.DishViewHolder holder, final int position) {
 
         Dish dish = mList.get(position);
 
@@ -38,6 +47,16 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         holder.tvComposition.setText("Состав: " + dish.composition);
         holder.tvWeight.setText("Вес: " + dish.weight + " г.");
         holder.tvPrice.setText("Цена: " + dish.price + " \u20BD");
+
+        holder.btnAddBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mClickListener != null) {
+                    mClickListener.onClick(position);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -53,6 +72,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         TextView tvComposition;
         TextView tvWeight;
         TextView tvPrice;
+        Button btnAddBasket;
 
         public DishViewHolder(View itemView){
             super(itemView);
@@ -63,6 +83,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             tvComposition = (TextView) itemView.findViewById(R.id.tv_composition);
             tvWeight = (TextView) itemView.findViewById(R.id.tv_weight);
             tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
+            btnAddBasket = (Button) itemView.findViewById(R.id.btnAddBasket);
         }
     }
 

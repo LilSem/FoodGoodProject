@@ -9,8 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.food_good.lilsem.food_good.model.Dish;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,17 +23,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DishFragment extends Fragment{
+public class DishFragment extends Fragment implements DishAdapter.OnRecyclerViewItemClickListener{
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mReference;
+    private FirebaseAuth mAuth;
 
     private RecyclerView mRecyclerView;
     private List<Dish> mList;
     private DishAdapter mAdapter;
 
     String id = "";
-
+    String userRef;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,26 +59,25 @@ public class DishFragment extends Fragment{
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new DishAdapter(mList);
+        mAdapter = new DishAdapter(mList,this);
         mRecyclerView.setAdapter(mAdapter);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-        mReference = mFirebaseDatabase.getReference("dishes");
+        mReference = mFirebaseDatabase.getReference();
 
         updateList();
+
+        mAuth = FirebaseAuth.getInstance();
+        // получаем ссылку на пользователя
+        FirebaseUser user = mAuth.getCurrentUser();
+        userRef = user.getUid();
+
         return view;
     }
-//.orderByChild("restaurantId").equalTo(key)
-//    private void createView(){
-//
-//        for (int i = 0; i < 20; i++) {
-//            mList.add(new Restaurant(R.drawable.fg_logo,"Уни пицца", "пиццерия/японская кухня","250","354",""));
-//        }
-//    }
 
     private void updateList() {
         if (id.isEmpty()) {
-            mReference.addChildEventListener(new ChildEventListener() {
+            mReference.child("dishes").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     mList.add(dataSnapshot.getValue(Dish.class));
@@ -112,7 +115,7 @@ public class DishFragment extends Fragment{
             });
 
         } else {
-            mReference.orderByChild("restaurantId").equalTo(id).addChildEventListener(new ChildEventListener() {
+            mReference.child("dishes").orderByChild("restaurantId").equalTo(id).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     mList.add(dataSnapshot.getValue(Dish.class));
@@ -163,4 +166,13 @@ public class DishFragment extends Fragment{
         return index;
     }
 
+    @Override
+    public void onClick(int position) {
+        Toast.makeText(getActivity(),"test" + position, Toast.LENGTH_SHORT).show();
+
+        // в нужную ветку БД помещаем значение
+        mReference.child("basket").child(userRef).child("order").push().setValue(mList.get(position).id);
+        mReference.child("basket").child(userRef).child("restaurantId").push().setValue(mList.get(position).restaurantId);
+
+    }
 }
