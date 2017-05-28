@@ -4,6 +4,8 @@ package com.food_good.lilsem.food_good.model;
 
 public class Dish {
 
+    public Dish(){
+    }
 
     public String title;
     public String composition;
@@ -13,9 +15,6 @@ public class Dish {
     public String id;
     public String restaurantId;
 
-
-    public Dish(){
-    }
 
     public Dish(String title, String composition, String weight, String price, String key, String id, String restaurantId) {
         this.title = title;

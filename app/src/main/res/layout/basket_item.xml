@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:layout_height="wrap_content"
+              android:layout_width="match_parent"
+              android:clickable="true"
+              android:background="?attr/selectableItemBackground"
+    >
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_basket_dish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="7dp"
+        card_view:contentPaddingBottom="10dp"
+        card_view:contentPaddingTop="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_basket_dish_logo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="11dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/fg_logo"/>
+
+            <TextView
+                android:id="@+id/tv_basket_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/iv_remove"
+                android:layout_marginStart="11dp"
+                android:layout_toEndOf="@+id/iv_basket_dish_logo"
+                android:text="Название"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tv_basket_composition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/tv_basket_title"
+                android:layout_below="@+id/tv_basket_title"
+                android:layout_marginTop="14dp"
+                android:text="Состав"
+                android:textColor="@color/colorTextGray"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_basket_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_basket_price"
+                android:layout_alignStart="@+id/tv_basket_price"
+                android:layout_marginBottom="18dp"
+                android:text="Вес"
+                android:textColor="@color/colorTextGray"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_basket_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/iv_basket_dish_logo"
+                android:layout_alignStart="@+id/tv_basket_title"
+                android:text="Цена"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"/>
+
+            <ImageView
+                android:id="@+id/iv_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="8dp"
+                card_view:srcCompat="@drawable/close_circle"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

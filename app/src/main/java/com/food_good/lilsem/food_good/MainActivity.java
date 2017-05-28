@@ -1,13 +1,14 @@
 package com.food_good.lilsem.food_good;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -72,7 +73,87 @@ public class MainActivity extends AppCompatActivity
         //получаем ссылку на нашу базу данных
         mReference = FirebaseDatabase.getInstance().getReference();
 
+        updateUI();
+        getRestaurant();
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_basket:
+                final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                mBasketFragment = new BasketFragment();
+                fragmentTransaction.replace(R.id.content_main, mBasketFragment)
+                        .commit();
+                mToolbar.setTitle("Корзина");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        int id = item.getItemId();
+
+        if (id == R.id.nav_promotions) {
+
+            eventFragment = new EventFragment();
+            fragmentTransaction.replace(R.id.content_main, eventFragment)
+                    .commit();
+            mToolbar.setTitle("Акции");
+
+        } else if (id == R.id.nav_restaurant) {
+
+            restaurantFragment = new RestaurantFragment();
+            fragmentTransaction.replace(R.id.content_main, restaurantFragment)
+                    .commit();
+            mToolbar.setTitle("Рестораны");
+
+        } else if (id == R.id.nav_dishes) {
+
+            dishFragment = new DishFragment();
+            fragmentTransaction.replace(R.id.content_main, dishFragment)
+                    .commit();
+            mToolbar.setTitle("Блюда");
+
+        } else if (id == R.id.nav_basket) {
+
+            mBasketFragment = new BasketFragment();
+            fragmentTransaction.replace(R.id.content_main, mBasketFragment)
+                    .commit();
+            mToolbar.setTitle("Корзина");
+
+        } else if (id == R.id.nav_history) {
+
+        } else if (id == R.id.nav_settings) {
+
+            accountFragment = new AccountFragment();
+            fragmentTransaction.replace(R.id.content_main, accountFragment)
+                    .commit();
+            mToolbar.setTitle("Профиль");
+
+        } else if (id == R.id.nav_exit) {
+            this.finish();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public void updateUI() {
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -96,63 +177,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-
-        int id = item.getItemId();
-
-        if (id == R.id.nav_promotions) {
-
-            eventFragment = new EventFragment();
-            fragmentTransaction.replace(R.id.fragment_main, eventFragment)
-                    .addToBackStack(null)
-                    .commit();
-            mToolbar.setTitle("Акции");
-
-        } else if (id == R.id.nav_restaurant) {
-
-            restaurantFragment = new RestaurantFragment();
-            fragmentTransaction.replace(R.id.fragment_main, restaurantFragment)
-                    .addToBackStack(null)
-                    .commit();
-            mToolbar.setTitle("Рестораны");
-
-        } else if (id == R.id.nav_dishes){
-
-            dishFragment = new DishFragment();
-            fragmentTransaction.replace(R.id.fragment_main, dishFragment)
-                    .addToBackStack(null)
-                    .commit();
-            mToolbar.setTitle("Блюда");
-
-        } else if (id == R.id.nav_basket) {
-
-            mBasketFragment = new BasketFragment();
-            fragmentTransaction.replace(R.id.fragment_main, mBasketFragment)
-                    .addToBackStack(null)
-                    .commit();
-            mToolbar.setTitle("Корзина");
-
-        } else if (id == R.id.nav_history) {
-
-        } else if (id == R.id.nav_settings) {
-
-            accountFragment = new AccountFragment();
-            fragmentTransaction.replace(R.id.fragment_main, accountFragment)
-                    .addToBackStack(null)
-                    .commit();
-            mToolbar.setTitle("Профиль");
-
-        } else if (id == R.id.nav_exit) {
-            this.finish();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    private void getRestaurant(){
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        RestaurantFragment fragment = new RestaurantFragment();
+        fragmentTransaction.add(R.id.content_main, fragment);
+        fragmentTransaction.commit();
+        mToolbar.setTitle("Рестораны");
     }
 }

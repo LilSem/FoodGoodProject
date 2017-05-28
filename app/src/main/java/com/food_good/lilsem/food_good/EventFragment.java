@@ -1,7 +1,7 @@
 package com.food_good.lilsem.food_good;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,7 +55,7 @@ public class EventFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-        mReference = mFirebaseDatabase.getReference("events");
+        mReference = mFirebaseDatabase.getReference("event");
 
         updateList();
         return view;

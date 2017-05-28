@@ -1,7 +1,7 @@
 package com.food_good.lilsem.food_good;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,8 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-public class DishFragment extends Fragment implements DishAdapter.OnRecyclerViewItemClickListener{
+public class DishFragment extends Fragment implements DishAdapter.OnRecyclerViewItemClickListener {
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mReference;
@@ -35,6 +36,7 @@ public class DishFragment extends Fragment implements DishAdapter.OnRecyclerView
 
     String id = "";
     String userRef;
+    UUID idOne;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class DishFragment extends Fragment implements DishAdapter.OnRecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new DishAdapter(mList,this);
+        mAdapter = new DishAdapter(mList, this);
         mRecyclerView.setAdapter(mAdapter);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -155,10 +157,10 @@ public class DishFragment extends Fragment implements DishAdapter.OnRecyclerView
     }
 
 
-    private int getItemIndex(Dish dish){
+    private int getItemIndex(Dish dish) {
         int index = -1;
         for (int i = 0; i < mList.size(); i++) {
-            if (mList.get(i).key.equals(dish.key)){
+            if (mList.get(i).key.equals(dish.key)) {
                 index = i;
                 break;
             }
@@ -168,11 +170,18 @@ public class DishFragment extends Fragment implements DishAdapter.OnRecyclerView
 
     @Override
     public void onClick(int position) {
-        Toast.makeText(getActivity(),"test" + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "test" + position, Toast.LENGTH_SHORT).show();
 
         // в нужную ветку БД помещаем значение
-        mReference.child("basket").child(userRef).child("order").push().setValue(mList.get(position).id);
-        mReference.child("basket").child(userRef).child("restaurantId").push().setValue(mList.get(position).restaurantId);
+
+        String key = mReference.child("basket").push().getKey();
+        mReference.child("basket").child(key).child("userId").setValue(userRef);
+        mReference.child("basket").child(key).child("dishId").setValue(mList.get(position).id);
+        mReference.child("basket").child(key).child("restaurantId").setValue(mList.get(position).restaurantId);
+        mReference.child("basket").child(key).child("weight").setValue(mList.get(position).weight);
+        mReference.child("basket").child(key).child("title").setValue(mList.get(position).title);
+        mReference.child("basket").child(key).child("composition").setValue(mList.get(position).composition);
+        mReference.child("basket").child(key).child("price").setValue(mList.get(position).price);
 
     }
 }

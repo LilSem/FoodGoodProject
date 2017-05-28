@@ -1,8 +1,8 @@
 package com.food_good.lilsem.food_good;
 
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -121,7 +121,7 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.On
         bundle.putString("id", id);
         dishFragment.setArguments(bundle);
         final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_main, dishFragment)
+        fragmentTransaction.replace(R.id.content_main, dishFragment)
                 .addToBackStack(null)
                 .commit();
     }

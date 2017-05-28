@@ -8,12 +8,5 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.food_good.lilsem.food_good.MainActivity"
     tools:showIn="@layout/app_bar_main">
-        <fragment
-            android:id="@+id/fragment_main"
-            android:name="com.food_good.lilsem.food_good.BasketFragment"
-            tools:layout = "@layout/fragment_basket"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"/>
+
 </RelativeLayout>
