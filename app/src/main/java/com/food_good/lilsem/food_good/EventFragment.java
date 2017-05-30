@@ -55,7 +55,7 @@ public class EventFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-        mReference = mFirebaseDatabase.getReference("event");
+        mReference = mFirebaseDatabase.getReference("events");
 
         updateList();
         return view;

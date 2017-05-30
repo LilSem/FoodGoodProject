@@ -29,12 +29,12 @@
                 android:id="@+id/iv_dish_logo"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="11dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/fg_logo"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"/>
+                android:scaleType="fitCenter"
+                android:src="@drawable/fg_logo"/>
 
             <TextView
                 android:id="@+id/tv_title"

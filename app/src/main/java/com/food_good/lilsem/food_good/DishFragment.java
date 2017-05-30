@@ -1,9 +1,9 @@
 package com.food_good.lilsem.food_good;
 
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -170,11 +170,13 @@ public class DishFragment extends Fragment implements DishAdapter.OnRecyclerView
 
     @Override
     public void onClick(int position) {
-        Toast.makeText(getActivity(), "test" + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Блюдо добавлено в корзину!", Toast.LENGTH_SHORT).show();
 
         // в нужную ветку БД помещаем значение
 
         String key = mReference.child("basket").push().getKey();
+        mReference.child("basket").child(key).child("photoLink").setValue(mList.get(position).photoLink);
+        mReference.child("basket").child(key).child("orderId").setValue(key);
         mReference.child("basket").child(key).child("userId").setValue(userRef);
         mReference.child("basket").child(key).child("dishId").setValue(mList.get(position).id);
         mReference.child("basket").child(key).child("restaurantId").setValue(mList.get(position).restaurantId);

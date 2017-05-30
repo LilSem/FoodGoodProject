@@ -1,6 +1,7 @@
 package com.food_good.lilsem.food_good;
 
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.food_good.lilsem.food_good.model.Dish;
 
 import java.util.List;
@@ -39,10 +41,9 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
     @Override
     public void onBindViewHolder(DishAdapter.DishViewHolder holder, final int position) {
-
         Dish dish = mList.get(position);
 
-        holder.ivDish.setImageResource(R.drawable.fg_logo);
+        loadImage(dish.photoLink, holder.ivDish);
         holder.tvTitle.setText(dish.title);
         holder.tvComposition.setText("Состав: " + dish.composition);
         holder.tvWeight.setText("Вес: " + dish.weight + " г.");
@@ -57,6 +58,13 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             }
         });
 
+    }
+
+    public static void loadImage(String url, ImageView imageView) {
+        Context context = imageView.getContext();
+        Glide.with(context)
+                .load(url)
+                .into(imageView);
     }
 
     @Override

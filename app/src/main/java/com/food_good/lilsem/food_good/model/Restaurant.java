@@ -4,23 +4,23 @@ package com.food_good.lilsem.food_good.model;
 public class Restaurant {
 
     public String key;
-    public int PhotoUri;
+    public String photoLink;
     public String id;
     public String title;
-    public String kitchen;
-    public String salaryPrice;
-    public String deliveryPrice;
+    public String restaurantKitchen;
+    public String restaurantSalaryPrice;
+    public String restaurantDeliveryPrice;
 
     public Restaurant(){
     }
 
-    public Restaurant(String key, int photoUri, String id, String title, String kitchen, String salaryPrice, String deliveryPrice) {
+    public Restaurant(String key, String photoLink, String id, String title, String restaurantKitchen, String restaurantSalaryPrice, String restaurantDeliveryPrice) {
         this.key = key;
-        PhotoUri = photoUri;
+        this.photoLink = photoLink;
         this.id = id;
         this.title = title;
-        this.kitchen = kitchen;
-        this.salaryPrice = salaryPrice;
-        this.deliveryPrice = deliveryPrice;
+        this.restaurantKitchen = restaurantKitchen;
+        this.restaurantSalaryPrice = restaurantSalaryPrice;
+        this.restaurantDeliveryPrice = restaurantDeliveryPrice;
     }
 }

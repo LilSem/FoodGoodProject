@@ -1,5 +1,6 @@
 package com.food_good.lilsem.food_good;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.food_good.lilsem.food_good.model.Basket;
 
 import java.util.List;
@@ -15,7 +17,6 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.BasketView
 
 private List<Basket> mList;
 private OnRecyclerViewItemClickListener mClickListener;
-
 
 public interface OnRecyclerViewItemClickListener {
     void onClick(int position);
@@ -35,10 +36,9 @@ public interface OnRecyclerViewItemClickListener {
 
     @Override
     public void onBindViewHolder(BasketAdapter.BasketViewHolder holder, final int position) {
-
         Basket basket = mList.get(position);
 
-        holder.ivDish.setImageResource(R.drawable.fg_logo);
+        loadImage(basket.photoLink, holder.ivDish);
         holder.tvTitle.setText(basket.title);
         holder.tvComposition.setText("Состав: " + basket.composition);
         holder.tvWeight.setText("Вес: " + basket.weight + " г.");
@@ -55,11 +55,17 @@ public interface OnRecyclerViewItemClickListener {
         });
     }
 
+    public static void loadImage(String url, ImageView imageView) {
+        Context context = imageView.getContext();
+        Glide.with(context)
+                .load(url)
+                .into(imageView);
+    }
+
     @Override
     public int getItemCount() {
         return mList.size();
     }
-
 
 
 class BasketViewHolder extends RecyclerView.ViewHolder{

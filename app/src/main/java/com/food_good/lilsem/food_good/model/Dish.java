@@ -14,9 +14,9 @@ public class Dish {
     public String key;
     public String id;
     public String restaurantId;
+    public String photoLink;
 
-
-    public Dish(String title, String composition, String weight, String price, String key, String id, String restaurantId) {
+    public Dish(String title, String composition, String weight, String price, String key, String id, String restaurantId, String photoLink) {
         this.title = title;
         this.composition = composition;
         this.weight = weight;
@@ -24,5 +24,6 @@ public class Dish {
         this.key = key;
         this.id = id;
         this.restaurantId = restaurantId;
+        this.photoLink = photoLink;
     }
 }

@@ -34,11 +34,11 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
     private RecyclerView mRecyclerView;
     TextView tvSumDishes;
     private List<Basket> mList;
-    private List<String> list;
 
     private BasketAdapter mAdapter;
 
     String userRef;
+    int index = -1;
 
     public BasketFragment() {
 
@@ -60,7 +60,6 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
         FirebaseUser user = mAuth.getCurrentUser();
         Context context = getActivity();
         mList = new ArrayList<>();
-        list = new ArrayList<>();
         mRecyclerView = (RecyclerView) view.findViewById(R.id.basket_list);
         tvSumDishes = (TextView) view.findViewById(R.id.tv_sum_dishes);
 
@@ -85,7 +84,6 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 mList.add(dataSnapshot.getValue(Basket.class));
-                list.add(dataSnapshot.getKey());
                 mAdapter.notifyDataSetChanged();
                 getSumDishes();
             }
@@ -93,9 +91,9 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Basket model = dataSnapshot.getValue(Basket.class);
-                int index = getItemIndex(model);
-                mList.set(index, model);
-                mAdapter.notifyItemChanged(index);
+                    int index = getItemIndex(model);
+                    mList.set(index, model);
+                    mAdapter.notifyItemChanged(index);
                 getSumDishes();
             }
 
@@ -120,9 +118,9 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
 
 
     private int getItemIndex(Basket basket) {
-        int index = 0;
+
         for (int i = 0; i < mList.size(); i++) {
-            if (mList.get(i).key != null && mList.get(i).key.equals(basket.key)) {
+            if (mList.get(i) != null && mList.get(i).orderId.equals(basket.orderId)) {
                 index = i;
                 break;
             }
@@ -142,12 +140,13 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
 
     @Override
     public void onClick(int position) {
-        removeOrder(position);
+
+            removeOrder(position);
+
     }
 
     private void removeOrder(int position) {
-
-        mReference.child("basket").child(list.get(position)).removeValue();
-    }
+                mReference.child("basket").child(mList.get(position).orderId).removeValue();
+        }
 }
 
