@@ -182,6 +182,5 @@ public class MainActivity extends AppCompatActivity
         RestaurantFragment fragment = new RestaurantFragment();
         fragmentTransaction.add(R.id.content_main, fragment);
         fragmentTransaction.commit();
-        mToolbar.setTitle("Рестораны");
     }
 }

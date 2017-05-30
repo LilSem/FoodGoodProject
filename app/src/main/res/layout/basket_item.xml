@@ -40,12 +40,12 @@
                 android:id="@+id/tv_basket_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/iv_remove"
-                android:layout_marginStart="11dp"
-                android:layout_toEndOf="@+id/iv_basket_dish_logo"
+                android:layout_marginStart="9dp"
                 android:text="Название"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/iv_basket_dish_logo"/>
 
             <TextView
                 android:id="@+id/tv_basket_composition"
@@ -81,11 +81,13 @@
 
             <ImageView
                 android:id="@+id/iv_remove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="8dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
                 card_view:srcCompat="@drawable/close_circle"/>
 
         </RelativeLayout>

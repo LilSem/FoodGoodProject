@@ -1,9 +1,9 @@
 package com.food_good.lilsem.food_good;
 
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,6 +34,7 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
     private RecyclerView mRecyclerView;
     TextView tvSumDishes;
     private List<Basket> mList;
+    private List<String> list;
 
     private BasketAdapter mAdapter;
 
@@ -59,7 +60,7 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
         FirebaseUser user = mAuth.getCurrentUser();
         Context context = getActivity();
         mList = new ArrayList<>();
-
+        list = new ArrayList<>();
         mRecyclerView = (RecyclerView) view.findViewById(R.id.basket_list);
         tvSumDishes = (TextView) view.findViewById(R.id.tv_sum_dishes);
 
@@ -80,11 +81,11 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
     }
 
     private void updateList() {
-
         mReference.child("basket").orderByChild("userId").equalTo(userRef).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 mList.add(dataSnapshot.getValue(Basket.class));
+                list.add(dataSnapshot.getKey());
                 mAdapter.notifyDataSetChanged();
                 getSumDishes();
             }
@@ -92,9 +93,9 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Basket model = dataSnapshot.getValue(Basket.class);
-                    int index = getItemIndex(model);
-                    mList.set(index, model);
-                    mAdapter.notifyItemChanged(index);
+                int index = getItemIndex(model);
+                mList.set(index, model);
+                mAdapter.notifyItemChanged(index);
                 getSumDishes();
             }
 
@@ -106,9 +107,11 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
                 mAdapter.notifyItemRemoved(index);
                 getSumDishes();
             }
+
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -117,9 +120,9 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
 
 
     private int getItemIndex(Basket basket) {
-        int index = 1;
+        int index = 0;
         for (int i = 0; i < mList.size(); i++) {
-            if (mList.get(i).key!=null &&  mList.get(i).key.equals(basket.key)) {
+            if (mList.get(i).key != null && mList.get(i).key.equals(basket.key)) {
                 index = i;
                 break;
             }
@@ -127,10 +130,10 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
         return index;
     }
 
-    private void getSumDishes(){
+    private void getSumDishes() {
         int sum = 0;
         for (int i = 0; i < mList.size(); i++) {
-            if(mList.get(i).price != null) {
+            if (mList.get(i).price != null) {
                 sum += Integer.parseInt(mList.get(i).price);
             }
         }
@@ -139,7 +142,12 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
 
     @Override
     public void onClick(int position) {
+        removeOrder(position);
+    }
 
+    private void removeOrder(int position) {
+
+        mReference.child("basket").child(list.get(position)).removeValue();
     }
 }
 

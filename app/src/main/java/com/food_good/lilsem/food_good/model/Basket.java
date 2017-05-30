@@ -1,5 +1,8 @@
 package com.food_good.lilsem.food_good.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Basket {
 
     public Basket(){
@@ -23,5 +26,18 @@ public class Basket {
         this.weight = weight;
         this.title = title;
         this.composition = composition;
+    }
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("key",key);
+        hashMap.put("userId",userId);
+        hashMap.put("dishId",dishId);
+        hashMap.put("price",price);
+        hashMap.put("restaurantId",restaurantId);
+        hashMap.put("weight",weight);
+        hashMap.put("title",title);
+        hashMap.put("composition",composition);
+        return hashMap;
     }
 }
