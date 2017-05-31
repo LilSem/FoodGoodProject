@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class DishFragment extends Fragment implements DishAdapter.OnRecyclerViewItemClickListener {
 
@@ -36,7 +35,6 @@ public class DishFragment extends Fragment implements DishAdapter.OnRecyclerView
 
     String id = "";
     String userRef;
-    UUID idOne;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

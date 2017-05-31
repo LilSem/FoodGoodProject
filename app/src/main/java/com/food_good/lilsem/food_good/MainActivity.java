@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity
 
             eventFragment = new EventFragment();
             fragmentTransaction.replace(R.id.content_main, eventFragment)
+                    .addToBackStack(null)
                     .commit();
             mToolbar.setTitle("Акции");
 
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity
 
             restaurantFragment = new RestaurantFragment();
             fragmentTransaction.replace(R.id.content_main, restaurantFragment)
+                    .addToBackStack(null)
                     .commit();
             mToolbar.setTitle("Рестораны");
 
@@ -125,6 +127,7 @@ public class MainActivity extends AppCompatActivity
 
             dishFragment = new DishFragment();
             fragmentTransaction.replace(R.id.content_main, dishFragment)
+                    .addToBackStack(null)
                     .commit();
             mToolbar.setTitle("Блюда");
 
@@ -132,6 +135,7 @@ public class MainActivity extends AppCompatActivity
 
             mBasketFragment = new BasketFragment();
             fragmentTransaction.replace(R.id.content_main, mBasketFragment)
+                    .addToBackStack(null)
                     .commit();
             mToolbar.setTitle("Корзина");
 
@@ -141,6 +145,7 @@ public class MainActivity extends AppCompatActivity
 
             accountFragment = new AccountFragment();
             fragmentTransaction.replace(R.id.content_main, accountFragment)
+                    .addToBackStack(null)
                     .commit();
             mToolbar.setTitle("Профиль");
 

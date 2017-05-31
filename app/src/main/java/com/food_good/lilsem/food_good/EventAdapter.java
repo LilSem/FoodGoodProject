@@ -19,9 +19,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
     private List<Event> mList;
+    private OnRecyclerViewItemClickListener mClickListener;
 
-    public EventAdapter(List<Event> list) {
+
+    public interface OnRecyclerViewItemClickListener {
+        void onClick(int position);
+    }
+
+    public EventAdapter(List<Event> list, OnRecyclerViewItemClickListener clickListener) {
         mList = list;
+        mClickListener = clickListener;
     }
 
     @Override
@@ -31,12 +38,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
 
     @Override
-    public void onBindViewHolder(EventAdapter.EventViewHolder holder, int position) {
+    public void onBindViewHolder(EventAdapter.EventViewHolder holder, final int position) {
         Event event = mList.get(position);
 
         loadImage(event.photoLink, holder.ivEvent);
         holder.ivEvent.setImageResource(R.drawable.fg_logo);
         holder.tvTitle.setText(event.title);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mClickListener != null) {
+                    mClickListener.onClick(position);
+                }
+            }
+        });
 
     }
     public static void loadImage(String url, ImageView imageView) {

@@ -45,14 +45,14 @@ public interface OnRecyclerViewItemClickListener {
         holder.tvPrice.setText("Цена: " + basket.price + " \u20BD");
 
 
-        holder.btnDelBasket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mClickListener != null) {
-                    mClickListener.onClick(position);
-                }
-            }
-        });
+//        holder.btnDelBasket.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mClickListener != null) {
+//                    mClickListener.onClick(position);
+//                }
+//            }
+//        });
     }
 
     public static void loadImage(String url, ImageView imageView) {
@@ -75,7 +75,6 @@ class BasketViewHolder extends RecyclerView.ViewHolder{
     TextView tvComposition;
     TextView tvWeight;
     TextView tvPrice;
-    ImageView btnDelBasket;
 
     public BasketViewHolder(View itemView){
         super(itemView);
@@ -85,7 +84,6 @@ class BasketViewHolder extends RecyclerView.ViewHolder{
         tvComposition = (TextView) itemView.findViewById(R.id.tv_basket_composition);
         tvWeight = (TextView) itemView.findViewById(R.id.tv_basket_weight);
         tvPrice = (TextView) itemView.findViewById(R.id.tv_basket_price);
-        btnDelBasket = (ImageView) itemView.findViewById(R.id.iv_remove);
     }
 }
 

@@ -30,6 +30,7 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.On
     private RecyclerView mRecyclerView;
     private List<Restaurant> mList;
     private RestaurantAdapter mAdapter;
+    String id = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,10 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.On
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.restaurant_list, container, false);
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            id = bundle.getString("idRestaurants");
+        }
 
         Context context = getActivity();
         mList = new ArrayList<>();
@@ -61,42 +66,79 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.On
     }
 
     private void updateList() {
+        if (id.isEmpty()) {
+            mReference.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    mList.add(dataSnapshot.getValue(Restaurant.class));
+                    mAdapter.notifyDataSetChanged();
+                }
 
-        mReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                mList.add(dataSnapshot.getValue(Restaurant.class));
-                mAdapter.notifyDataSetChanged();
-            }
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Restaurant model = dataSnapshot.getValue(Restaurant.class);
+                    int index = getItemIndex(model);
+                    mList.set(index, model);
+                    mAdapter.notifyItemChanged(index);
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Restaurant model = dataSnapshot.getValue(Restaurant.class);
-                int index = getItemIndex(model);
-                mList.set(index, model);
-                mAdapter.notifyItemChanged(index);
+                }
 
-            }
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Restaurant model = dataSnapshot.getValue(Restaurant.class);
+                    int index = getItemIndex(model);
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Restaurant model = dataSnapshot.getValue(Restaurant.class);
-                int index = getItemIndex(model);
+                    mList.remove(index);
+                    mAdapter.notifyItemRemoved(index);
+                }
 
-                mList.remove(index);
-                mAdapter.notifyItemRemoved(index);
-            }
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
 
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }else{
+            mReference.orderByChild("id").equalTo(id).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    mList.add(dataSnapshot.getValue(Restaurant.class));
+                    mAdapter.notifyDataSetChanged();
+                }
 
-            }
-        });
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Restaurant model = dataSnapshot.getValue(Restaurant.class);
+                    int index = getItemIndex(model);
+                    mList.set(index, model);
+                    mAdapter.notifyItemChanged(index);
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Restaurant model = dataSnapshot.getValue(Restaurant.class);
+                    int index = getItemIndex(model);
+
+                    mList.remove(index);
+                    mAdapter.notifyItemRemoved(index);
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     private int getItemIndex(Restaurant restaurant) {

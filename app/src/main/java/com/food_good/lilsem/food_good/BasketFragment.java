@@ -2,10 +2,13 @@ package com.food_good.lilsem.food_good;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +79,10 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
         userRef = user.getUid();
 
         updateList();
+
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView); //set swipe to recylcerview
         return view;
     }
 
@@ -90,20 +97,12 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Basket model = dataSnapshot.getValue(Basket.class);
-                    int index = getItemIndex(model);
-                    mList.set(index, model);
-                    mAdapter.notifyItemChanged(index);
-                getSumDishes();
+
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Basket model = dataSnapshot.getValue(Basket.class);
-                int index = getItemIndex(model);
-                mList.remove(index);
-                mAdapter.notifyItemRemoved(index);
-                getSumDishes();
+
             }
 
             @Override
@@ -117,17 +116,6 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
     }
 
 
-    private int getItemIndex(Basket basket) {
-
-        for (int i = 0; i < mList.size(); i++) {
-            if (mList.get(i) != null && mList.get(i).orderId.equals(basket.orderId)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-
     private void getSumDishes() {
         int sum = 0;
         for (int i = 0; i < mList.size(); i++) {
@@ -135,7 +123,7 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
                 sum += Integer.parseInt(mList.get(i).price);
             }
         }
-        tvSumDishes.setText("Сумма заказа: " + sum);
+        tvSumDishes.setText("Сумма заказа: " + sum + " \u20BD");
     }
 
     @Override
@@ -146,7 +134,44 @@ public class BasketFragment extends Fragment implements BasketAdapter.OnRecycler
     }
 
     private void removeOrder(int position) {
-                mReference.child("basket").child(mList.get(position).orderId).removeValue();
+        mReference.child("basket").child(mList.get(position).orderId).removeValue();
+        mAdapter.notifyItemRemoved(position);
+        mList.remove(position);
+        getSumDishes();
         }
+
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
+            final int position = viewHolder.getAdapterPosition(); //get position which is swipe
+
+            if (direction == ItemTouchHelper.LEFT) {    //if swipe left
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Вы действительно хотите удалить блюдо из корзины?");
+
+                builder.setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        removeOrder(position);
+                        return;
+                    }
+                }).setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mAdapter.notifyItemRemoved(position + 1);
+                        mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
+                        return;
+                    }
+                }).show();  //show alert dialog
+            }
+        }
+    };
 }
 
